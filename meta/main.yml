@@ -18,3 +18,6 @@ dependencies: []
 galaxy_tags:
   - yum
   - yumrepo
+categories:
+  - packaging
+  - system
