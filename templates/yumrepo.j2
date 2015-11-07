@@ -1,0 +1,7 @@
+### WARNING: This file is under Ansible control. ###
+###          Manual changes will be overwritten. ###
+
+[{{ item.key }}]
+{% for k, v in item.value.iteritems() | sort -%}
+  {{ k }}={{ v }}
+{% endfor %}

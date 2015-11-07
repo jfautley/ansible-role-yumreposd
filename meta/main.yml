@@ -1,0 +1,20 @@
+---
+galaxy_info:
+  author: Jon Fautley
+  description: Role to manage /etc/yum.repos.d/ on RHEL-like systems
+  license: MIT
+  min_ansible_version: 1.9
+  platforms:
+  - name: EL
+    versions:
+    - all
+  - name: Fedora
+    versions:
+    - all
+  - name: Amazon
+    versions:
+    - all
+dependencies: []
+galaxy_tags:
+  - yum
+  - yumrepo

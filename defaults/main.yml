@@ -1,0 +1,6 @@
+---
+yumreposd_repos: {}
+yumreposd_delete_unmanaged: false
+yumreposd_preserve: []
+yumreposd_destdir: /etc/yum.repos.d
+yumreposd_importgpgkeys: true
