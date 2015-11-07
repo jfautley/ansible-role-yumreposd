@@ -61,6 +61,8 @@ Portions of this code are derived from [Jiri Tyr](https://github.com/jtyr)'s [an
 
 ###Author Information
 
+Please raise any issues via the [GitHub Issue Tracker](https://github.com/jfautley/ansible-role-yumreposd/issues), pull requests are welcome.
+
 * Jon Fautley 
   * Email: <jon@dead.li>
   * GitHub:
