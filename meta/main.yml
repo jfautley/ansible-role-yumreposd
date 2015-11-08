@@ -14,10 +14,10 @@ galaxy_info:
   - name: Amazon
     versions:
     - all
+  galaxy_tags:
+    - yum
+    - yumrepo
+  categories:
+    - packaging
+    - system
 dependencies: []
-galaxy_tags:
-  - yum
-  - yumrepo
-categories:
-  - packaging
-  - system
