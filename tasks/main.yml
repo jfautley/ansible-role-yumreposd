@@ -3,14 +3,30 @@
   assert:
     that: ansible_os_family == 'RedHat'
 
-- name: Configure repo snippets in yum.repos.d
+- name: Configure repo snippets in yum.repos.d (legacy)
   template:
     src: yumrepo.j2
     dest: "{{ yumreposd_destdir }}/{{ item.key }}.repo"
-  with_dict: yumreposd_repos
-  when: yumreposd_repos.keys() | length > 0
+  with_dict: "{{yumreposd_repos}}"
+  when:
+    - yumreposd_repos.keys() | length > 0
+    - "{{ ansible_version | version_compare('2.1', '<') }}"
   notify:
     - yum expire-cache
+
+- name: Configure repo snippets in yum.repos.d (yum_repository builtin)
+  yum_repository:
+    name: "{{ item.key }}"
+    description: "{{ item.value.name | default(omit) }}"
+    baseurl: "{{ item.value.baseurl | default(omit) }}"
+    mirrorlist: "{{ item.mirrorlist | default(omit) }}"
+    gpgkey: "{{ item.value.gpgkey | default(omit) }}"
+    gpgcheck: "{{ item.value.gpgcheck | default('no') }}"
+    enabled: "{{ item.value.enabled | default('yes') }}"
+  with_dict: "{{yumreposd_repos}}"
+  when:
+    - yumreposd_repos.keys() | length > 0
+    - "{{ ansible_version | version_compare('2.1', '>=') }}"
 
 - name: Generate list of GPG keys to import
   set_fact:
@@ -30,7 +46,7 @@
              replace('$releasever', ansible_distribution_major_version) |
              replace('$arch', ansible_architecture) |
              replace('$basearch', ansible_architecture) }}"
-  with_items: import_gpgkeys
+  with_items: "{{import_gpgkeys}}"
   when: yumreposd_importgpgkeys
 
 - name: Get all configured yum repo files
