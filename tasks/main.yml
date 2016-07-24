@@ -58,7 +58,7 @@
 
 - name: Remove unmanaged yum repos
   file: path="{{ yumreposd_destdir }}/{{ item }}.repo" state=absent
-  with_items: yumrepos_configured.stdout_lines
+  with_items: "{{yumrepos_configured.stdout_lines}}"
   when:
     - item not in yumreposd_repos.keys()
     - item not in yumreposd_preserve
