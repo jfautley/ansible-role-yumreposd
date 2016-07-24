@@ -45,7 +45,8 @@
     key: "{{ item |
              replace('$releasever', ansible_distribution_major_version) |
              replace('$arch', ansible_architecture) |
-             replace('$basearch', ansible_architecture) }}"
+             replace('$basearch', ansible_architecture) |
+             replace('file://', '') }}"
   with_items: "{{import_gpgkeys}}"
   when: yumreposd_importgpgkeys
 
