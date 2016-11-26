@@ -47,7 +47,7 @@
              replace('$arch', ansible_architecture) |
              replace('$basearch', ansible_architecture) |
              replace('file://', '') }}"
-  with_items: "{{import_gpgkeys}}"
+  with_items: "{{ import_gpgkeys | default() }}"
   when: yumreposd_importgpgkeys
 
 - name: Get all configured yum repo files
@@ -58,7 +58,7 @@
 
 - name: Remove unmanaged yum repos
   file: path="{{ yumreposd_destdir }}/{{ item }}.repo" state=absent
-  with_items: "{{yumrepos_configured.stdout_lines}}"
+  with_items: "{{ yumrepos_configured.stdout_lines | default(None) }}"
   when:
     - item not in yumreposd_repos.keys()
     - item not in yumreposd_preserve
